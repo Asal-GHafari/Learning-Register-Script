@@ -16,7 +16,7 @@ echo "<br /><br /><h3>Write a messege :</h3>";
 $sender='';
 $reciver='';
 $messege='';
- if (!empty($_POST))
+ if (!empty($_POST['sender']))
 {
 	$sender=mysqli_real_escape_string($db,$_POST['sender']);
 	$reciver=mysqli_real_escape_string($db,$_POST['reciver']);
