@@ -1,5 +1,5 @@
 <?php
-include("config.php");
+include("config/config.php");
 
 $sql = "CREATE TABLE testTable
 (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
