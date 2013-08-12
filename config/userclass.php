@@ -1,6 +1,7 @@
 <?php
 class user
 {
+
 function register($username,$password,$passverif,$email)
 {
 	//We check if the two passwords are identical
@@ -113,6 +114,51 @@ function islogin()
 {
 	if(isset($_SESSION['username']) and $_SESSION['username'] === $_COOKIE["user"])
 		return TRUE;
+}
+
+function update($id, $password='' ,$passverif='' ,$email='' ,$avatar='' ) //Should be contain all fileds !
+{
+	//We check if the two passwords are identical
+	if($password!='' and $password!=$passverif)
+	{	//Otherwise, we say the passwords are not identical
+		return 'The passwords you entered are not identical.';
+	}
+	
+	//We check if the password has 6 or more characters
+	if($password!='' and strlen($password)<6)
+	{	//Otherwise, we say the password is too short
+		return 'Your password must contain at least 6 characters.';
+	}
+	
+	/*
+	/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,12}$/
+	 Between Start -> ^
+	 And End -> $
+	 of the string there has to be at least one number -> (?=.*\d)
+	 and at least one letter -> (?=.*[A-Za-z])
+	 and it has to be a number, a letter or one of the following: !@#$% -> [0-9A-Za-z!@#$%]
+	 and there have to be 8-12 characters -> {8,12}
+	 */
+	if($password!='' and !preg_match('/^[0-9A-Za-z!@#$%]{6,20}$/', $password)) {
+		return 'the password does not meet the requirements!';
+	}
+	
+	//We check if the email form is valid
+	if($email!='' and !preg_match('#^(([a-z0-9!\#$%&\\\'*+/=?^_`{|}~-]+\.?)*[a-z0-9!\#$%&\\\'*+/=?^_`{|}~-]+)@(([a-z0-9-_]+\.?)*[a-z0-9-_]+)\.[a-z]{2,}$#i',$email))
+	{
+		//Otherwise, we say the email is not valid
+		return 'The email you entered is not valid.';
+	}
+	
+	$sql ="UPDATE users SET";
+	$sql.=" id='".$id."'";
+	if($password!='')
+		$sql.=", password='".$password."'";
+	if($email!='')
+		$sql.=", email='".$email."'";
+	if($avatar!='')
+		$sql.=", avatar='".$avatar."'";
+	$sql.=" WHERE id='".$id."'";
 }
 
 function getname($userid)
