@@ -1,11 +1,7 @@
 <?php
 class user
 {
-var $name;  // User Name
-var $id; // User ID
-var $avatar; // User Avatar
-
-function singup($username,$password,$passverif,$email)
+function register($username,$password,$passverif,$email)
 {
 	//We check if the two passwords are identical
 	if($password!=$passverif)
@@ -118,6 +114,28 @@ function islogin()
 	if(isset($_SESSION['username']) and $_SESSION['username'] === $_COOKIE["user"])
 		return TRUE;
 }
+
+function getname($userid)
+{
+ if($userid='')
+ {
+	return $_SESSION['username'];
+ }
+}
+
+function getid($username='')
+{
+	 if($username='')
+	 {
+		return $_SESSION['userid'];
+	 }
+}
+
+function getavatar($userid=getid()) // Can have problem ?
+{
+	
+}
+
 
 }
 ?>
