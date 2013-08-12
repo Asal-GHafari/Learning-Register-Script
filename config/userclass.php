@@ -61,8 +61,8 @@ function register($username,$password,$passverif,$email)
 	
 	//We check if there is no other user using the same username
 	$sql = 'select id from users where username="'.$username.'"';
-	$dn = mysqli_num_rows(mysqli_query($db,$sql));
-	if($dn>0)
+	$row = mysqli_num_rows(mysqli_query($db,$sql));
+	if($row>0)
 	{	//Otherwise, we say the username is not available
 		return 'The username you want to use is not available, please choose another one.';
 	}
@@ -92,13 +92,13 @@ function login($username,$password)
 	//We get the password of the user
 	$sql = 'select password,id from users where username="'.$username.'"';
 	$res = mysqli_query($db, $sql);
-	$dn = mysqli_fetch_array($res);
+	$row = mysqli_fetch_array($res);
 	//We compare the submited password and the real one, and we check if the user exists
-	if($dn['password']==$password)
+	if($row['password']==$password)
 	{
 		//We save the user name in the session username and the user Id in the session userid
 		$_SESSION['username'] = $username];
-		$_SESSION['userid'] = $dn['id'];
+		$_SESSION['userid'] = $row['id'];
 		setcookie("user", $username,  time() + 36000);
 		return TRUE;
 	}
@@ -133,7 +133,10 @@ function getid($username='')
 
 function getavatar($userid=getid()) // Can have problem ?
 {
-	
+	$sql = 'select avatar,id from users where id="'.$userid.'"';
+	$res = mysqli_query($db, $sql);
+	$row = mysqli_fetch_array($res);
+	return $row['avatar'];
 }
 
 
