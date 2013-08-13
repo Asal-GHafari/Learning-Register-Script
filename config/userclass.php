@@ -1,7 +1,9 @@
 <?php
-class user
+class user_class
 {
 
+ var $db;
+ 
 function register($username,$password,$passverif,$email)
 {
 	//We check if the two passwords are identical
@@ -62,7 +64,15 @@ function register($username,$password,$passverif,$email)
 	
 	//We check if there is no other user using the same username
 	$sql = 'select id from users where username="'.$username.'"';
-	$row = mysqli_num_rows(mysqli_query($db,$sql));
+	$res =mysqli_query($this->db,$sql);
+	//check_mysqli_error($this->db,$res);
+	if (!$res)
+	{
+		//Otherwise, we say that an error occured
+		return '0An error occurred while signing up.';
+	}
+	
+	$row = mysqli_num_rows($res);
 	if($row>0)
 	{	//Otherwise, we say the username is not available
 		return 'The username you want to use is not available, please choose another one.';
@@ -70,8 +80,10 @@ function register($username,$password,$passverif,$email)
 	
 	//We save the informations to the databse
 	$sql = 'insert into users(username, password, email, signup_date) values 
-	('.$username.'", "'.$password.'", "'.$email.'", "'.time().'")';
-	if(mysqli_query($db,$sql))
+	("'.$username.'", "'.$password.'", "'.$email.'", "'.time().'")';
+	$res =mysqli_query($this->db,$sql);
+	//check_mysqli_error($this->db,$res);
+	if($res)
 	{
 		// Susses
 		return TRUE;
@@ -92,7 +104,7 @@ function login($username,$password)
 	
 	//We get the password of the user
 	$sql = 'select password,id from users where username="'.$username.'"';
-	$res = mysqli_query($db, $sql);
+	$res = mysqli_query($this->db, $sql);
 		if (!$res)
 			return FALSE;
 	$row = mysqli_fetch_array($res);
@@ -163,7 +175,8 @@ function update($id, $password='' ,$passverif='' ,$email='' ,$avatar='' ) //Shou
 	if($avatar!='')
 		$sql.=", avatar='".$avatar."'";
 	$sql.=" WHERE id='".$id."'";
-	if(mysqli_query($db,$sql))
+	$res = mysqli_query($this->db, $sql);
+	if ($res)
 	{
 		// Susses
 		return TRUE;
@@ -194,9 +207,9 @@ function getid($username='')
 function getavatar($userid='') // Can have problem ?
 {
 	if ($userid='')
-		$userid=this->getid();
+		$userid=$this->getid();
 	$sql = 'select avatar,id from users where id="'.$userid.'"';
-	$res = mysqli_query($db, $sql);
+	$res = mysqli_query($this->db, $sql);
 	if ($res)
 	{
 		$row = mysqli_fetch_array($res);
@@ -209,9 +222,9 @@ function getavatar($userid='') // Can have problem ?
 function getdetails($userid='')
 {
 	if ($userid='')
-		$userid=this->getid();
+		$userid=$this->getid();
 	$sql = 'select * from users where id="'.$userid.'"';
-	$res = mysqli_query($db, $sql);
+	$res = mysqli_query($this->db, $sql);
 	if ($res)
 	{
 		return mysqli_fetch_array($res);
