@@ -1,6 +1,6 @@
 <?php
 // init Script :
-include("config/config.php");
+include("../config/config.php");
 $sql = "CREATE TABLE messeges
 (
 id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
