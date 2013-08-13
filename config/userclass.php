@@ -80,7 +80,7 @@ function register($username,$password,$passverif,$email)
 	if(mysqli_query($db,$sql))
 	{
 		// Susses
-		return TRUE
+		return TRUE;
 	}
 	else
 	{
@@ -99,12 +99,14 @@ function login($username,$password)
 	//We get the password of the user
 	$sql = 'select password,id from users where username="'.$username.'"';
 	$res = mysqli_query($db, $sql);
+		if (!$res)
+			return FALSE;
 	$row = mysqli_fetch_array($res);
 	//We compare the submited password and the real one, and we check if the user exists
 	if($row['password']==$password)
 	{
 		//We save the user name in the session username and the user Id in the session userid
-		$_SESSION['username'] = $username];
+		$_SESSION['username'] = $username;
 		$_SESSION['userid'] = $row['id'];
 		setcookie("user", $username,  time() + 36000);
 		return TRUE;
@@ -183,8 +185,10 @@ function getid($username='')
 	 }
 }
 
-function getavatar($userid=getid()) // Can have problem ?
+function getavatar($userid='') // Can have problem ?
 {
+	if ($userid='')
+		$userid=getid();
 	$sql = 'select avatar,id from users where id="'.$userid.'"';
 	$res = mysqli_query($db, $sql);
 	if ($res)
@@ -196,8 +200,10 @@ function getavatar($userid=getid()) // Can have problem ?
 	}
 }
 
-function getdetails($userid=getid()) // Can have problem ?
+function getdetails($userid='') // Can have problem ?
 {
+	if ($userid='')
+		$userid=getid();
 	$sql = 'select * from users where id="'.$userid.'"';
 	$res = mysqli_query($db, $sql);
 	if ($res)
