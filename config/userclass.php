@@ -120,7 +120,7 @@ function islogin()
 		return FALSE;
 }
 
-function update($id, $password='' ,$passverif='' ,$email='' ,$avatar='' ) //Should be contain all fileds !
+function update($id, $password='' ,$passverif='' ,$email='' ,$avatar='' ) //Should be contain all fileds ! + Can be a array (halesh nis !)
 {
 	//We check if the two passwords are identical
 	if($password!='' and $password!=$passverif)
