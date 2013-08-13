@@ -2,12 +2,6 @@
 class user
 {
 
-var $id; // User ID
-var $name;  // User Name
-var $email; //User mail
-var $avatar; // User Avatar
-var $signup_date; // signup date
-
 function register($username,$password,$passverif,$email)
 {
 	//We check if the two passwords are identical
@@ -122,6 +116,8 @@ function islogin()
 {
 	if(isset($_SESSION['username']) and $_SESSION['username'] === $_COOKIE["user"])
 		return TRUE;
+	else
+		return FALSE;
 }
 
 function update($id, $password='' ,$passverif='' ,$email='' ,$avatar='' ) //Should be contain all fileds !
@@ -167,6 +163,16 @@ function update($id, $password='' ,$passverif='' ,$email='' ,$avatar='' ) //Shou
 	if($avatar!='')
 		$sql.=", avatar='".$avatar."'";
 	$sql.=" WHERE id='".$id."'";
+	if(mysqli_query($db,$sql))
+	{
+		// Susses
+		return TRUE;
+	}
+	else
+	{
+		//Otherwise, we say that an error occured
+		return 'An error occurred while updating.';
+	}
 }
 
 function getname($userid)
@@ -188,7 +194,7 @@ function getid($username='')
 function getavatar($userid='') // Can have problem ?
 {
 	if ($userid='')
-		$userid=getid();
+		$userid=this->getid();
 	$sql = 'select avatar,id from users where id="'.$userid.'"';
 	$res = mysqli_query($db, $sql);
 	if ($res)
@@ -200,21 +206,22 @@ function getavatar($userid='') // Can have problem ?
 	}
 }
 
-function getdetails($userid='') // Can have problem ?
+function getdetails($userid='')
 {
 	if ($userid='')
-		$userid=getid();
+		$userid=this->getid();
 	$sql = 'select * from users where id="'.$userid.'"';
 	$res = mysqli_query($db, $sql);
 	if ($res)
 	{
-		$row = mysqli_fetch_array($res);
-		$id=$row['id'];
+		return mysqli_fetch_array($res);
+	/*	$id=$row['id'];
 		$name=$row['username'];
 		$email=$row['email'];
 		$avatar=$row['avatar'];
 		$signup_date=$row['signup_date'];
 		return TRUE;
+	*/
 	}else{
 		return FALSE;
 	}
