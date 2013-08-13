@@ -2,6 +2,12 @@
 class user
 {
 
+var $id; // User ID
+var $name;  // User Name
+var $email; //User mail
+var $avatar; // User Avatar
+var $signup_date; // signup date
+
 function register($username,$password,$passverif,$email)
 {
 	//We check if the two passwords are identical
@@ -181,8 +187,31 @@ function getavatar($userid=getid()) // Can have problem ?
 {
 	$sql = 'select avatar,id from users where id="'.$userid.'"';
 	$res = mysqli_query($db, $sql);
-	$row = mysqli_fetch_array($res);
-	return $row['avatar'];
+	if ($res)
+	{
+		$row = mysqli_fetch_array($res);
+		return $row['avatar'];
+	}else{
+		return FALSE;
+	}
+}
+
+function getdetails($userid=getid()) // Can have problem ?
+{
+	$sql = 'select * from users where id="'.$userid.'"';
+	$res = mysqli_query($db, $sql);
+	if ($res)
+	{
+		$row = mysqli_fetch_array($res);
+		$id=$row['id'];
+		$name=$row['username'];
+		$email=$row['email'];
+		$avatar=$row['avatar'];
+		$signup_date=$row['signup_date'];
+		return TRUE;
+	}else{
+		return FALSE;
+	}
 }
 
 
