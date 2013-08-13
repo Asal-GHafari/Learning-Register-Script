@@ -22,18 +22,20 @@ function register($username,$password,$passverif,$email)
 	/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,12}$/
 	 Between Start -> ^
 	 And End -> $
+	 Starts with letter [a-z]+
 	 of the string there has to be at least one number -> (?=.*\d)
 	 and at least one letter -> (?=.*[A-Za-z])
 	 and it has to be a number, a letter or one of the following: !@#$% -> [0-9A-Za-z!@#$%]
 	 and there have to be 8-12 characters -> {8,12}
 	 */
-	if(!preg_match('/^[0-9A-Za-z!@#$%]{6,20}$/', $password)) {
+	if(!preg_match('/^[a-z]+[0-9A-Za-z!@#$%]{6,20}$/', $password)) {
 		return 'the password does not meet the requirements!';
 	}
 	
 	//We check if the username form is valid
 	/*
 		/^[a-z0-9]{6,10}$/
+	 Starts with letter [a-z]+
 	Numbers from 0 - 9
 	No capital letters
 	no special symbols at all
@@ -41,7 +43,7 @@ function register($username,$password,$passverif,$email)
 	max of 10 characters
 	*/
 	
-	if(!preg_match('/^[a-z0-9]{6,12}$/',$username))
+	if(!preg_match('/^[a-z]+[a-z0-9]{5,12}$/',$username))
 	{
 		//Otherwise, we say the username is not valid
 		return 'The username you entered is not valid.';
@@ -97,9 +99,9 @@ function register($username,$password,$passverif,$email)
 
 function login($username,$password)
 {
-	if(!preg_match('/^[0-9A-Za-z!@#$%]{6,20}$/', $password))
+	if(!preg_match('/^[a-z]+[0-9A-Za-z!@#$%]{6,20}$/', $password))
 		return 'the password does not meet the requirements!';
-	if(!preg_match('/^[a-z0-9]{6,12}$/',$username))
+	if(!preg_match('/^[a-z]+[a-z0-9]{5,12}$/',$username))
 		return 'The username you entered is not valid.';
 	
 	//We get the password of the user
@@ -155,7 +157,7 @@ function update($id, $password='' ,$passverif='' ,$email='' ,$avatar='' ) //Shou
 	 and it has to be a number, a letter or one of the following: !@#$% -> [0-9A-Za-z!@#$%]
 	 and there have to be 8-12 characters -> {8,12}
 	 */
-	if($password!='' and !preg_match('/^[0-9A-Za-z!@#$%]{6,20}$/', $password)) {
+	if($password!='' and !preg_match('/^[a-z]+[0-9A-Za-z!@#$%]{6,20}$/', $password)) {
 		return 'the password does not meet the requirements!';
 	}
 	
