@@ -85,7 +85,20 @@ function register($username,$password,$passverif,$email,$auto_active=0)
 	
 	if ($auto_active==0) // We Need activation code
 	{
+		generate_active_code:
 		$auto_active=random_str(10); // 10 character activation code
+		$sql = 'select id from users where active="'.$auto_active.'"';
+		$res =mysqli_query($this->db,$sql);
+		if (!$res)
+		{
+			//Otherwise, we say that an error occured
+			return userclass_lang_27;
+		}
+		$row = mysqli_num_rows($res);
+		if($row>0)
+		{	//Otherwise, we generate another code
+			goto generate_active_code;
+		}
 	}else{
 		$auto_active=null; // Means that accont is active !
 	}

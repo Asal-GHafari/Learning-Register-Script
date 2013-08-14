@@ -15,4 +15,5 @@ define("userclass_lang_23", 'Your password must contain at least 6 characters.' 
 define("userclass_lang_24", 'the password does not meet the requirements!' );
 define("userclass_lang_25", 'The email you entered is not valid.' );
 define("userclass_lang_26", 'An error occurred while updating.' );
+define("userclass_lang_27", 'An error occurred, please try later.' );
 ?>
