@@ -8,5 +8,6 @@ include("userclass.php");
 	
 	// Define system VALUES
 	define("_domain", 'localhost' );
+	define("_sitepath", '/PHP/Learning-Register-Script/' );
 	
 ?>
