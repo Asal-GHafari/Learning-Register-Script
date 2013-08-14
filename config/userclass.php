@@ -28,7 +28,7 @@ function register($username,$password,$passverif,$email)
 	 and it has to be a number, a letter or one of the following: !@#$% -> [0-9A-Za-z!@#$%]
 	 and there have to be 8-12 characters -> {8,12}
 	 */
-	if(!preg_match('/^[a-z]+[0-9A-Za-z!@#$%]{6,20}$/', $password)) {
+	if(!preg_match('/^[0-9A-Za-z!@#$%]{6,20}$/', $password)) {
 		return 'the password does not meet the requirements!';
 	}
 	
@@ -99,7 +99,7 @@ function register($username,$password,$passverif,$email)
 
 function login($username,$password)
 {
-	if(!preg_match('/^[a-z]+[0-9A-Za-z!@#$%]{6,20}$/', $password))
+	if(!preg_match('/^[0-9A-Za-z!@#$%]{6,20}$/', $password))
 		return 'the password does not meet the requirements!';
 	if(!preg_match('/^[a-z]+[a-z0-9]{5,12}$/',$username))
 		return 'The username you entered is not valid.';
