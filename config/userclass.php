@@ -1,4 +1,6 @@
 <?php
+include("userclass_lang_en.php");
+
 class user_class
 {
 
@@ -9,13 +11,13 @@ function register($username,$password,$passverif,$email)
 	//We check if the two passwords are identical
 	if($password!=$passverif)
 	{	//Otherwise, we say the passwords are not identical
-		return 'The passwords you entered are not identical.';
+		return userclass_lang_11;
 	}
 	
 	//We check if the password has 6 or more characters
 	if(strlen($password)<6)
 	{	//Otherwise, we say the password is too short
-		return 'Your password must contain at least 6 characters.';
+		return userclass_lang_12;
 	}
 	
 	/*
@@ -29,7 +31,7 @@ function register($username,$password,$passverif,$email)
 	 and there have to be 8-12 characters -> {8,12}
 	 */
 	if(!preg_match('/^[0-9A-Za-z!@#$%]{6,20}$/', $password)) {
-		return 'the password does not meet the requirements!';
+		return userclass_lang_13;
 	}
 	
 	//We check if the username form is valid
@@ -46,14 +48,14 @@ function register($username,$password,$passverif,$email)
 	if(!preg_match('/^[a-z]+[a-z0-9]{5,12}$/',$username))
 	{
 		//Otherwise, we say the username is not valid
-		return 'The username you entered is not valid.';
+		return userclass_lang_14;
 	}
 	
 	//We check if the email form is valid
 	if(!preg_match('#^(([a-z0-9!\#$%&\\\'*+/=?^_`{|}~-]+\.?)*[a-z0-9!\#$%&\\\'*+/=?^_`{|}~-]+)@(([a-z0-9-_]+\.?)*[a-z0-9-_]+)\.[a-z]{2,}$#i',$email))
 	{
 		//Otherwise, we say the email is not valid
-		return 'The email you entered is not valid.';
+		return userclass_lang_15;
 	}
 	
 	//We protect the variables
@@ -71,13 +73,13 @@ function register($username,$password,$passverif,$email)
 	if (!$res)
 	{
 		//Otherwise, we say that an error occured
-		return '0An error occurred while signing up.';
+		return userclass_lang_16;
 	}
 	
 	$row = mysqli_num_rows($res);
 	if($row>0)
 	{	//Otherwise, we say the username is not available
-		return 'The username you want to use is not available, please choose another one.';
+		return userclass_lang_17;
 	}
 	
 	//We save the informations to the databse
@@ -93,16 +95,16 @@ function register($username,$password,$passverif,$email)
 	else
 	{
 		//Otherwise, we say that an error occured
-		return 'An error occurred while signing up.';
+		return userclass_lang_18;
 	}
 }
 
 function login($username,$password)
 {
 	if(!preg_match('/^[0-9A-Za-z!@#$%]{6,20}$/', $password))
-		return 'the password does not meet the requirements!';
+		return userclass_lang_19;
 	if(!preg_match('/^[a-z]+[a-z0-9]{5,12}$/',$username))
-		return 'The username you entered is not valid.';
+		return userclass_lang_20;
 	
 	//We get the password of the user
 	$sql = 'select password,id from users where username="'.$username.'"';
@@ -122,7 +124,7 @@ function login($username,$password)
 	else
 	{
 		//Otherwise, we say the password is incorrect.
-		return 'The username or password is incorrect.';
+		return userclass_lang_21;
 	}
 }
 
@@ -139,13 +141,13 @@ function update($id, $password='' ,$passverif='' ,$email='' ,$avatar='' ) //Shou
 	//We check if the two passwords are identical
 	if($password!='' and $password!=$passverif)
 	{	//Otherwise, we say the passwords are not identical
-		return 'The passwords you entered are not identical.';
+		return userclass_lang_22;
 	}
 	
 	//We check if the password has 6 or more characters
 	if($password!='' and strlen($password)<6)
 	{	//Otherwise, we say the password is too short
-		return 'Your password must contain at least 6 characters.';
+		return userclass_lang_23;
 	}
 	
 	/*
@@ -158,14 +160,14 @@ function update($id, $password='' ,$passverif='' ,$email='' ,$avatar='' ) //Shou
 	 and there have to be 8-12 characters -> {8,12}
 	 */
 	if($password!='' and !preg_match('/^[a-z]+[0-9A-Za-z!@#$%]{6,20}$/', $password)) {
-		return 'the password does not meet the requirements!';
+		return userclass_lang_24;
 	}
 	
 	//We check if the email form is valid
 	if($email!='' and !preg_match('#^(([a-z0-9!\#$%&\\\'*+/=?^_`{|}~-]+\.?)*[a-z0-9!\#$%&\\\'*+/=?^_`{|}~-]+)@(([a-z0-9-_]+\.?)*[a-z0-9-_]+)\.[a-z]{2,}$#i',$email))
 	{
 		//Otherwise, we say the email is not valid
-		return 'The email you entered is not valid.';
+		return userclass_lang_25;
 	}
 	
 	$sql ="UPDATE users SET";
@@ -186,7 +188,7 @@ function update($id, $password='' ,$passverif='' ,$email='' ,$avatar='' ) //Shou
 	else
 	{
 		//Otherwise, we say that an error occured
-		return 'An error occurred while updating.';
+		return userclass_lang_26;
 	}
 }
 
