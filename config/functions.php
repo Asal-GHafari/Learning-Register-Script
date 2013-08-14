@@ -27,10 +27,11 @@ function random_str($length = 10) {
 function sendmail($to,$subject,$message)
 {
 	$headers = 'From: NoReplay@'. _domain . "\r\n" .
-	                  'Reply-To: NoReplay@'. _domain . "\r\n" .
+	                  "MIME-Version: 1.0\r\n" .
 	                  'X-Mailer: PHP/' . phpversion() . "\r\n" .
-	                  'Content-Type: text/html; charset=UTF-8';
-	return mail($to, $subject, $message, $headers);
+	                  'Content-Type: text/plain; charset=utf-8\r\n' .
+	                  "Content-Transfer-Encoding: 8bit";
+	return mail($to, "=?utf-8?B?".base64_encode($subject)."?=", $message, $headers);
 }
 
 ?>
