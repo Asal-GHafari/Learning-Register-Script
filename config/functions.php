@@ -24,4 +24,12 @@ function random_str($length = 10) {
 	return $randomString;
 }
 
+function sendmail($to,$subject,$message)
+{
+	$headers = 'From: NoReplay@'. _domain . "\r\n" .
+	                  'Reply-To: NoReplay@'. _domain . "\r\n" .
+	                  'X-Mailer: PHP/' . phpversion();
+	mail($to, $subject, $message, $headers);
+}
+
 ?>
