@@ -28,7 +28,8 @@ function sendmail($to,$subject,$message)
 {
 	$headers = 'From: NoReplay@'. _domain . "\r\n" .
 	                  'Reply-To: NoReplay@'. _domain . "\r\n" .
-	                  'X-Mailer: PHP/' . phpversion();
+	                  'X-Mailer: PHP/' . phpversion() . "\r\n" .
+	                  'Content-Type: text/html; charset=UTF-8';
 	mail($to, $subject, $message, $headers);
 }
 
