@@ -6,4 +6,7 @@ include("userclass.php");
 	$user=new user_class();
 	$user->db=$db;
 	
+	// Define system VALUES
+	define("_domain", 'localhost' );
+	
 ?>
