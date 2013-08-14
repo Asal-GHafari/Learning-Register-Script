@@ -30,7 +30,7 @@ function sendmail($to,$subject,$message)
 	                  'Reply-To: NoReplay@'. _domain . "\r\n" .
 	                  'X-Mailer: PHP/' . phpversion() . "\r\n" .
 	                  'Content-Type: text/html; charset=UTF-8';
-	mail($to, $subject, $message, $headers);
+	return mail($to, $subject, $message, $headers);
 }
 
 ?>

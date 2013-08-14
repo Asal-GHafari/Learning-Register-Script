@@ -26,7 +26,7 @@ function userclass_lang_mail_active ($username,$email,$activationcode)
 	$message .= "همچنین شما می توانید برای فعالسازی اکانت خود روی لینک مقابل کلیک کنید : ". '<a href="http://' . _domain . _sitepath . 'active.php?code=' . $activationcode . '">http://' . _domain . _sitepath . 'active.php?code=' . $activationcode . '</a>' ." /r/n";
 	$message .= "درصورتی که شما چنین درخواستی نداده اید لطفا این ایمیل را نادیده بگیرید . /r/n";
 	
-	sendmail($email,'Activate your accont on '. _domain ,$message);
+	return sendmail($email,'Activate your accont on '. _domain ,$message);
 }
 
 ?>

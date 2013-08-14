@@ -89,6 +89,7 @@ function register($username,$password,$passverif,$email,$auto_active=0)
 		$auto_active=random_str(10); // 10 character activation code
 		$sql = 'select id from users where active="'.$auto_active.'"';
 		$res =mysqli_query($this->db,$sql);
+		// check_mysqli_error($this->db,$res);
 		if (!$res)
 		{
 			//Otherwise, we say that an error occured
@@ -104,13 +105,13 @@ function register($username,$password,$passverif,$email,$auto_active=0)
 	}
 	//We save the informations to the databse
 	$sql = 'insert into users(username, password, email, active, signup_date) values 
-	("'.$username.'", "'.$password.'", "'.$email.'", '.$auto_active.', "'.time().'")';
+	("'.$username.'", "'.$password.'", "'.$email.'", "'.$auto_active.'", "'.time().'")';
 	
 	$res =mysqli_query($this->db,$sql);
-	//check_mysqli_error($this->db,$res);
+	check_mysqli_error($this->db,$res);
 	if($res)
 	{
-		userclass_lang_mail_active ($username,$email,$auto_active);
+		return userclass_lang_mail_active ($username,$email,$auto_active);
 		// Susses
 		return TRUE;
 	}

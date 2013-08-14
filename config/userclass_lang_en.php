@@ -26,7 +26,7 @@ function userclass_lang_mail_active ($username,$email,$activationcode)
 	$message .= "You can also click on this link for activation your accont : ". '<a href="http://' . _domain . _sitepath . 'active.php?code=' . $activationcode . '">http://' . _domain . _sitepath . 'active.php?code=' . $activationcode . '</a>' ." /r/n";
 	$message .= "If you don't send this request please don't attention to this E-Mail /r/n";
 	
-	sendmail($email,'Activate your accont on '. _domain ,$message);
+	return sendmail($email,'Activate your accont on '. _domain ,$message);
 }
 
 ?>
