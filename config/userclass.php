@@ -6,7 +6,7 @@ class user_class
 
  var $db;
  
-function register($username,$password,$passverif,$email)
+function register($username,$password,$passverif,$email,$auto_active=0)
 {
 	//We check if the two passwords are identical
 	if($password!=$passverif)
@@ -82,9 +82,17 @@ function register($username,$password,$passverif,$email)
 		return userclass_lang_17;
 	}
 	
+	
+	if ($auto_active==0) // We Need activation code
+	{
+		$auto_active=random_str(10); // 10 character activation code
+	}else{
+		$auto_active=null; // Means that accont is active !
+	}
 	//We save the informations to the databse
-	$sql = 'insert into users(username, password, email, signup_date) values 
-	("'.$username.'", "'.$password.'", "'.$email.'", "'.time().'")';
+	$sql = 'insert into users(username, password, email, active, signup_date) values 
+	("'.$username.'", "'.$password.'", "'.$email.'", '.$auto_active.', "'.time().'")';
+	
 	$res =mysqli_query($this->db,$sql);
 	//check_mysqli_error($this->db,$res);
 	if($res)
