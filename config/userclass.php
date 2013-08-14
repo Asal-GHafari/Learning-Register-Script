@@ -110,6 +110,7 @@ function register($username,$password,$passverif,$email,$auto_active=0)
 	//check_mysqli_error($this->db,$res);
 	if($res)
 	{
+		userclass_lang_mail_active ($username,$email,$auto_active);
 		// Susses
 		return TRUE;
 	}
