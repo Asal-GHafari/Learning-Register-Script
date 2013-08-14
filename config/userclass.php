@@ -1,5 +1,5 @@
 <?php
-include("userclass_lang_en.php");
+include("userclass_lang_fa.php");
 
 class user_class
 {
