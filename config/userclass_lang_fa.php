@@ -16,4 +16,17 @@ define("userclass_lang_24", 'کلمه عبور خارج از حد مجاز اس�
 define("userclass_lang_25", 'ایمیل وارد شده صحیح نمی باشد .' );
 define("userclass_lang_26", 'خطایی در سیستم رخ داد، لطفا مجددا امتحان کنید.' );
 define("userclass_lang_27", 'خطایی در سیستم رخ داد، لطفا مجددا امتحان کنید.' );
+
+// Lang Functions
+function userclass_lang_mail_active ($username,$email,$activationcode)
+{
+	$message  = 'سلام /r/n';
+	$message .= 'ما درخواستی در سایت '. _domain .' برای فعالسازی کاربر "'. $username .'" دریافت کرده ایم. /r/n';
+	$message .= "کد فعالسازی شما عبارت است از ". $activationcode ." /r/n";
+	$message .= "همچنین شما می توانید برای فعالسازی اکانت خود روی لینک مقابل کلیک کنید : ". '<a href="http://' . _domain . _sitepath . 'active.php?code=' . $activationcode . '">http://' . _domain . _sitepath . 'active.php?code=' . $activationcode . '</a>' ." /r/n";
+	$message .= "درصورتی که شما چنین درخواستی نداده اید لطفا این ایمیل را نادیده بگیرید . /r/n";
+	
+	sendmail($email,'Activate your accont on '. _domain ,$message);
+}
+
 ?>
